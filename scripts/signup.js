@@ -5,7 +5,7 @@ const passwordInputElement = document.querySelector('.js-signup-input-password')
 const repeatedPassInputElement = document.querySelector('.js-signup-input-repeatedPassword');
 
 
-async function login(data){
+async function signup(data){
   const response = await fetch('http://localhost:8080/api/v1/users/signup', {
     method: "POST",
     headers: {
@@ -14,6 +14,10 @@ async function login(data){
     body: JSON.stringify(data)
   });
   
+  if(response.ok){
+    alert('Successful SignUp');
+  }
+
   if(!response.ok){
     const errorData = await response.json();
     console.log(errorData);
@@ -37,6 +41,6 @@ document.querySelector('.js-signup-button-form').addEventListener('click', () =>
 
   console.log(data);
 
-  login(data);
+  signup(data);
 
 });
