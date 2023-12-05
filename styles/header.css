@@ -1,10 +1,18 @@
 .header {
   margin-top: 20px;
   margin-bottom: 20px;
+  padding-bottom: 25px;
+  padding-top: 25px;
+  display: flex;
+  flex-direction: row;
+  justify-content:space-between;
+  border-bottom: solid;
+  border-top: solid;
+  border-color: black;
 }
 
 .middle-section {
-  text-align: center;
+  margin-left: 400px;
 }
 
 .all-book-button {
@@ -15,3 +23,33 @@
   background-color: white;
   cursor: pointer;
 }
+
+.all-book-button:hover {
+  border: solid;
+  border-color: black;
+  border-width: 2px;
+  padding: 6px;
+}
+
+.right-section {
+  align-self: center;
+  margin-right: 25px;
+}
+
+
+.signup-button {
+  font-size: 20px;
+  font-weight: bold;
+  color: royalblue;
+  border: none;
+  background-color: white;
+  cursor: pointer;
+}
+
+.signup-button:hover {
+  border: solid;
+  border-color: black;
+  border-width: 2px;
+  padding: 6px;
+}
+
