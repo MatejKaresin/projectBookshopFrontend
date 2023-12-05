@@ -1,18 +1,20 @@
 .header {
-  margin-top: 20px;
+  margin-top: 8px;
   margin-bottom: 20px;
-  padding-bottom: 25px;
-  padding-top: 25px;
+  padding-bottom: 20px;
+  padding-top: 20px;
   display: flex;
   flex-direction: row;
   justify-content:space-between;
   border-bottom: solid;
   border-top: solid;
   border-color: black;
+  height: 60px;
 }
 
 .middle-section {
   margin-left: 400px;
+  align-self: center;
 }
 
 .all-book-button {
@@ -29,6 +31,7 @@
   border-color: black;
   border-width: 2px;
   padding: 6px;
+  
 }
 
 .right-section {
