@@ -1,0 +1,17 @@
+.header {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.middle-section {
+  text-align: center;
+}
+
+.all-book-button {
+  font-size: 30px;
+  font-weight: bold;
+  color: royalblue;
+  border: none;
+  background-color: white;
+  cursor: pointer;
+}
