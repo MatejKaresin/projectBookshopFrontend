@@ -1,5 +1,7 @@
+import {addUser, user as loggedUser} from './cart.js';
 const nicknameInputElement = document.querySelector('.js-login-input-nickname');
 const passwordInputElement = document.querySelector('.js-login-input-password');
+
 
 async function login(data) {
   const response = await fetch('http://localhost:8080/api/v1/users/login', {
@@ -10,25 +12,26 @@ async function login(data) {
     body: JSON.stringify(data)
   });
   
+  const result = await response.json();
+
+  console.log(result);
+
   if(response.ok){
     alert('Successful Login');
+    addUser(result);
   }
 
   if(!response.ok){
-    const errorData = await response.json();
-    console.log(errorData);
+    console.log(result);
     if(response.status === 400) {
-      console.log(errorData.errors);
-      alert(errorData.errors);
+      console.log(result.errors);
+      alert(result.errors);
     }else {
-      alert(errorData.message);
+      alert(result.message);
     }  
   }
 }
 
-function changePage(page) {
-  window.location.href = page;
-}
 
 document.querySelector('.js-login-button-form').addEventListener('click', () => {
   const data = {
@@ -40,9 +43,12 @@ document.querySelector('.js-login-button-form').addEventListener('click', () => 
 
   login(data);
 
-  //This needs to go in if statement, when user is logged in, so first add user.js to have user object and save login there and only when user is logged this will execute
-  setTimeout(() => {
-    window.location.href= "bookshop.html";
-  }, 3500);
+  //console.log(loggedUser);
 
+  setTimeout(() => {
+    if(loggedUser.logged) {
+      window.location.href = "bookshop.html";
+    }
+  }, 2000);
+  
 });

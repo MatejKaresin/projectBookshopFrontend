@@ -42,8 +42,7 @@
 }
 
 
-.signup-button,
-.login-button {
+.options-button {
   font-size: 20px;
   font-weight: bold;
   color: royalblue;
@@ -52,8 +51,7 @@
   cursor: pointer;
 }
 
-.signup-button:hover,
-.login-button:hover {
+.options-button:hover {
   border: solid;
   border-color: black;
   border-width: 2px;
