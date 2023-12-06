@@ -16,11 +16,6 @@ async function login(data) {
 
   console.log(result);
 
-  if(response.ok){
-    alert('Successful Login');
-    addUser(result);
-  }
-
   if(!response.ok){
     console.log(result);
     if(response.status === 400) {
@@ -30,6 +25,19 @@ async function login(data) {
       alert(result.message);
     }  
   }
+
+  if(response.ok){
+    alert('Successful Login');
+    addUser(result);
+  }
+
+  setTimeout(() => {
+    if(loggedUser.logged) {
+      window.location.href = "bookshop.html";
+    } 
+  }, 1000);
+
+  
 }
 
 
@@ -44,11 +52,5 @@ document.querySelector('.js-login-button-form').addEventListener('click', () => 
   login(data);
 
   //console.log(loggedUser);
-
-  setTimeout(() => {
-    if(loggedUser.logged) {
-      window.location.href = "bookshop.html";
-    }
-  }, 2000);
   
 });

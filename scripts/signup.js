@@ -1,3 +1,4 @@
+import { addUser, user as loggedUser } from "./cart.js";
 
 const nicknameInputElement = document.querySelector('.js-signup-input-nickname');
 const emailInputElement = document.querySelector('.js-signup-input-email');
@@ -28,6 +29,43 @@ async function signup(data){
       alert(errorData.message);
     }  
   }
+
+  const loginData = {
+    nickName: data.nickName,
+    password: data.password
+  }
+
+  const loginResponse = await fetch('http://localhost:8080/api/v1/users/login', {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(loginData)
+  });
+
+  const result = await loginResponse.json();
+
+  if(!loginResponse.ok) {
+    console.log(result);
+    if(loginResponse === 400) {
+      console.log(result.errors);
+      alert(result.errors);
+    } else {
+      alert(result.message);
+    }
+  }
+
+  if(loginResponse.ok) {
+    alert('Logged in, redirecting...');
+    addUser(result);
+  }
+
+  setTimeout(() => {
+    if(loggedUser.logged) {
+      window.location.href = "bookshop.html";
+    }
+  }, 1000);
+
 }
 
 

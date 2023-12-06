@@ -95,11 +95,6 @@ async function logOut(user){
 
   //console.log(result);
 
-  if(response.ok){
-    alert('Successful LogOut');
-    removeUser(result);
-  }
-
   if(!response.ok){
     console.log(result);
     if(response.status === 400) {
@@ -109,19 +104,25 @@ async function logOut(user){
       alert(result.message);
     }  
   }
+
+  if(response.ok){
+    alert('Successful LogOut');
+    removeUser(result);
+  }
+
+  setTimeout(() => {
+    if(!loggedUser.logged) {
+      window.location.href = "bookshop.html";
+    }
+  }, 1000);
+
+  
 }
 
 
 if(loggedUser.logged){
   document.querySelector('.js-logout-button').addEventListener('click', () => {
   logOut(loggedUser);
-  
-  setTimeout(() => {
-    if(!loggedUser.logged) {
-      window.location.href = "bookshop.html";
-    }
-  }, 2000);
-
   });
 
 }
