@@ -64,7 +64,7 @@ async function signup(data){
     if(loggedUser.logged) {
       window.location.href = "bookshop.html";
     }
-  }, 1000);
+  }, 500);
 
 }
 

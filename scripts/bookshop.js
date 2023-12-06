@@ -114,7 +114,7 @@ async function logOut(user){
     if(!loggedUser.logged) {
       window.location.href = "bookshop.html";
     }
-  }, 1000);
+  }, 500);
 
   
 }
@@ -124,7 +124,6 @@ if(loggedUser.logged){
   document.querySelector('.js-logout-button').addEventListener('click', () => {
   logOut(loggedUser);
   });
-
 }
 
 
