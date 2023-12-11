@@ -1,6 +1,6 @@
 
 export let user = JSON.parse(localStorage.getItem('user'));
-let cart = {};
+export let cart = JSON.parse(localStorage.getItem('cart'));
 
 if(!user) {
   user = {
@@ -8,8 +8,16 @@ if(!user) {
   };
 }
 
+if(!cart) {
+  cart = [];
+}
+
 function saveUser(){
   localStorage.setItem('user', JSON.stringify(user));
+}
+
+function saveCart() {
+  localStorage.setItem('cart', JSON.stringify(cart));
 }
 
 export function addUser(result) {
@@ -21,6 +29,16 @@ export function addUser(result) {
   };
 
   saveUser(); 
+}
+
+export function addBook(book) {
+  cart.push({
+    id: book.id,
+    bookName: book.name,
+    price: book.price
+  });
+
+  saveCart();
 }
 
 export function removeUser(result) {
@@ -84,20 +102,44 @@ async function getBooksForUser(loggedUser) {
   if(user.logged){
     const response = await fetch(`http://localhost:8080/api/v1/users/${loggedUser.id}/basket`);
 
-    cart = await response.json();
+    const result = await response.json();
 
-    const ids = cart.bookIds;
+    const ids = result.bookIds;
 
     let bookIdsHTMl = '';
 
     ids.forEach((id) => {
+
+      let matchingProduct;
+
+      cart.forEach((cartItem) => {
+        if(id === cartItem.id) {
+          matchingProduct = cartItem;
+        }
+      });
+
+
       bookIdsHTMl += `
-        Id: ${id}
+        <div class="cart-item-container js-cart-item-container-${matchingProduct.id}">
+          <div class="cart-item-details-grid">
+            <div class="product-name">
+              ${matchingProduct.bookName}
+            </div>
+            <div class="product-price">
+              $${matchingProduct.price}
+            </div>
+            <div class="product-quantity">
+              <span class="delete-quantity-link link-primary js-delete-link" data-product-id=${matchingProduct.id}>
+                Delete
+              </span>
+            </div>
+          </div>
+        </div>
       `;
     });
 
 
-    const bodyForBooks = document.querySelector('.js-books');
+    const bodyForBooks = document.querySelector('.js-order-summary');
     
     if(bodyForBooks) {
       bodyForBooks.innerHTML = bookIdsHTMl; 

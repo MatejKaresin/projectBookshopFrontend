@@ -1,4 +1,4 @@
-import {user as loggedUser, removeUser} from './cart.js';
+import {user as loggedUser, removeUser, addUser, addBook} from './cart.js';
 
 let books = [];
 
@@ -31,6 +31,8 @@ async function getAllBooks(){
       <button class="add-to-cart-button">Add to cart</button>
     `;
     bookListHtml += html;
+
+    addBook(book);
   });
 
   document.querySelector('.js-books-output').innerHTML = bookListHtml;
