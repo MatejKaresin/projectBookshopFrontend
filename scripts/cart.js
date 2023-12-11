@@ -147,4 +147,29 @@ async function getBooksForUser(loggedUser) {
   }
 }
 
+export async function addBookToCart(bookId) {
+
+  const response = await fetch(`http://localhost:8080/api/v1/users/${user.id}/addBook/${bookId}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  });
+  
+  const result = await response.json();
+
+  if(!response.ok){
+    console.log(result);
+    if(response.status === 400) {
+      alert(result.errors);
+    }else {
+      alert(result.message);
+    }  
+  }
+
+  if(response.ok){
+    alert('Book Added');
+  }
+}
+
 getBooksForUser(user);

@@ -1,4 +1,4 @@
-import {user as loggedUser, removeUser, addUser, addBook} from './cart.js';
+import {user as loggedUser, removeUser, addUser, addBook, addBookToCart} from './cart.js';
 
 let books = [];
 
@@ -28,7 +28,7 @@ async function getAllBooks(){
       <div class="book-price">
         Price: ${book.price}
       </div>
-      <button class="add-to-cart-button">Add to cart</button>
+      <button class="add-to-cart-button js-add-to-cart-button" data-book-id=${book.id}>Add to cart</button>
     `;
     bookListHtml += html;
 
@@ -37,9 +37,26 @@ async function getAllBooks(){
 
   document.querySelector('.js-books-output').innerHTML = bookListHtml;
 
+
+  document.querySelectorAll('.js-add-to-cart-button').forEach((button) => {
+    button.addEventListener('click', () => {
+      if(loggedUser.logged){
+        const bookId = button.dataset.bookId;
+        addBookToCart(bookId);
+      } else {
+        alert('First login.');
+      }
+      
+    });
+  });
+
+  
+
 }
 
 getAllBooks();
+
+
 
 let headerHtml = '';
 
@@ -78,6 +95,8 @@ if(loggedUser.logged){
 } else {
   renderLoggedOutHeader();
 }
+
+
 
 async function logOut(user){
   const data = {
@@ -126,6 +145,6 @@ if(loggedUser.logged){
   document.querySelector('.js-logout-button').addEventListener('click', () => {
   logOut(loggedUser);
   });
+
+  
 }
-
-
