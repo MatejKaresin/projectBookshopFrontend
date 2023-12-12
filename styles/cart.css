@@ -102,3 +102,13 @@
 .delete-quantity-link {
   cursor: pointer;
 }
+
+.delete-quantity-link:hover {
+  color: red;
+}
+
+.total-price-box {
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: large;
+}

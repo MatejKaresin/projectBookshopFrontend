@@ -123,6 +123,26 @@ async function removeBookFromCart(deleteId) {
   getBooksForUser(user);
 }
 
+async function renderPayment() {
+  let paymentHTML = '';
+
+  const response = await fetch(`http://localhost:8080/api/v1/users/${user.id}/basketCheckout`);
+
+  const checkout = await response.json();
+
+  paymentHTML = `
+    <div class = "total-price-box">
+      Total price: $${checkout.totalPrice}
+    </div>
+  `;
+
+  const paymentBox = document.querySelector('.js-payment-summary');
+
+  if(paymentBox) {
+    paymentBox.innerHTML = paymentHTML;
+  }
+}
+
 async function getBooksForUser(loggedUser) {
 
   if(user.logged){
@@ -179,6 +199,8 @@ async function getBooksForUser(loggedUser) {
       removeBookFromCart(deleteId);
     });
   });
+
+  renderPayment();
 }
 
 export async function addBookToCart(bookId) {
@@ -207,5 +229,4 @@ export async function addBookToCart(bookId) {
 }
 
 getBooksForUser(user);
-
 
