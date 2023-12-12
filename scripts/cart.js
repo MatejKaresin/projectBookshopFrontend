@@ -97,6 +97,32 @@ if(logoutButton) {
   });
 }
 
+async function removeBookFromCart(deleteId) {
+  const response = await fetch(`http://localhost:8080/api/v1/users/${user.id}/removeBook/${deleteId}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  });
+  
+  const result = await response.json();
+
+  if(!response.ok){
+    console.log(result);
+    if(response.status === 400) {
+      alert(result.errors);
+    }else {
+      alert(result.message);
+    }  
+  }
+
+  if(response.ok){
+    alert('Book Removed');
+  }
+
+  getBooksForUser(user);
+}
+
 async function getBooksForUser(loggedUser) {
 
   if(user.logged){
@@ -145,6 +171,14 @@ async function getBooksForUser(loggedUser) {
       bodyForBooks.innerHTML = bookIdsHTMl; 
     }
   }
+
+  const deleteButtons = document.querySelectorAll('.js-delete-link');
+  deleteButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const deleteId = button.dataset.productId;
+      removeBookFromCart(deleteId);
+    });
+  });
 }
 
 export async function addBookToCart(bookId) {
@@ -173,3 +207,5 @@ export async function addBookToCart(bookId) {
 }
 
 getBooksForUser(user);
+
+
